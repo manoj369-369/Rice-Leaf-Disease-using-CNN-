@@ -1,71 +1,76 @@
-RICE LEAF DISEASE CLASSIFICATION USING CNN
+# 🌾 RICE LEAF DISEASE CLASSIFICATION USING CNN 🌾
 
-OVERVIEW
+## 🏆 OVERVIEW  
+🚀 This project **classifies rice leaf diseases** (**Leaf Smut, Brown Spot, and Bacterial Leaf Blight**) using **Convolutional Neural Networks (CNNs)**.  
+🌱 Early disease detection helps **farmers improve crop management & yield**.
 
-This project classifies rice leaf diseases (Leaf Smut, Brown Spot, and Bacterial Leaf Blight) using Convolutional Neural Networks (CNNs) to assist in early disease detection and better crop management.
+---
 
-DATASET
+## 📂 DATASET  
+📸 **120 images** across three disease classes:  
+✅ **Leaf Smut** - 40 images  
+✅ **Brown Spot** - 40 images  
+✅ **Bacterial Leaf Blight** - 40 images  
 
-120 images categorized into three classes:
+📌 **Preprocessing Techniques**:  
+🔹 **Image Resizing & Normalization** - Standardizes input size.  
+🔹 **Data Augmentation** - Enhances variability using **OpenCV & ImageDataGenerator**.
 
-Leaf Smut (40 images)
+---
 
-Brown Spot (40 images)
+## ⚡ MODELS USED & PERFORMANCE COMPARISON  
 
-Bacterial Leaf Blight (40 images)
+### 🟢 **1️⃣ CUSTOM CNN MODEL**  
+🛠 **Architecture**:  
+✔️ 4 **Convolutional Layers** (ReLU, MaxPooling)  
+✔️ **Dropout** for regularization  
+✔️ **Softmax Output Layer**  
 
-Preprocessing Techniques:
+🔹 **Optimizer**: Adam (**LR = 0.0001**)  
+🎯 **Accuracy**: **85%**  
 
-Image resizing and normalization
+📌 **Insight**: Trained from scratch, capable of feature extraction but **struggles with generalization**.  
 
-Data augmentation using OpenCV & ImageDataGenerator
+---
 
-MODELS USED & PERFORMANCE COMPARISON
+### 🔵 **2️⃣ MOBILENETV2 (FEATURE EXTRACTION, FROZEN LAYERS)**  
+🛠 **Architecture**:  
+✔️ **Pretrained MobileNetV2** as a feature extractor  
+✔️ Fully connected layers for classification  
 
-🟢 CUSTOM CNN MODEL
+🔹 **Optimizer**: SGD (**LR = 0.001, Momentum = 0.9**)  
+🎯 **Accuracy**: **90%**  
 
-Architecture:
+📌 **Insight**: Leveraging **pretrained features** improved classification but lacks dataset-specific adaptation.  
 
-4 Convolutional layers (ReLU, MaxPooling)
+---
 
-Fully connected layers with Dropout
+### 🔴 **3️⃣ MOBILENETV2 (FINE-TUNED, LAST 20 LAYERS TRAINABLE)**  
+🛠 **Architecture**:  
+✔️ **Same as Model 2**, but **fine-tuned last 20 layers**  
 
-Softmax output layer
+🔹 **Optimizer**: SGD (**LR = 0.0005, Momentum = 0.9**)  
+🎯 **Accuracy**: **93%**  
 
-Optimizer: Adam (LR = 0.0001)
+📌 **Insight**: Fine-tuning **improved adaptation**, boosting accuracy significantly.  
 
-Accuracy: 85%
+---
 
-Why? Trained from scratch, capable of feature extraction but struggles with generalization.
+## 📊 PERFORMANCE COMPARISON  
+| Model | Optimizer | Learning Rate | Accuracy |
+|--------|-----------|--------------|-----------|
+| 🟢 **Custom CNN** | Adam | 0.0001 | **85%** |
+| 🔵 **MobileNetV2 (Frozen Layers)** | SGD | 0.001 | **90%** |
+| 🔴 **MobileNetV2 (Fine-Tuned)** | SGD | 0.0005 | **93%** |
 
-🔵 MOBILENETV2 (FEATURE EXTRACTION, FROZEN LAYERS)
+📌 **Key Takeaways**:  
+✅ **Fine-tuned MobileNetV2 (93%)** is the best-performing model.  
+✅ **Feature Extraction MobileNetV2 (90%)** is effective but lags behind fine-tuning.  
+✅ **Basic CNN (85%)** has the lowest accuracy due to limited dataset & lack of transfer learning.
 
-Architecture:
+---
 
-Pretrained MobileNetV2 as a feature extractor
-
-Fully connected layers for classification
-
-Optimizer: SGD (LR = 0.001, Momentum = 0.9)
-
-Accuracy: 90%
-
-Why? Leveraging pretrained features enhanced classification performance.
-
-🔴 MOBILENETV2 (FINE-TUNED, LAST 20 LAYERS TRAINABLE)
-
-Architecture:
-
-Same as Model 2 but fine-tuned last 20 layers
-
-Optimizer: SGD (LR = 0.0005, Momentum = 0.9)
-
-Accuracy: 93%
-
-Why? Fine-tuning enabled better adaptation to the rice leaf dataset, boosting accuracy.
-
-🔍 RESULTS SUMMARY
-
-✅ Fine-tuned MobileNetV2 (93%) is the best-performing model
-✅ Feature extraction MobileNetV2 (90%) is effective but lags behind fine-tuning
-✅ Basic CNN (85%) has the lowest accuracy due to limited dataset and no transfer learning
+## 🛠 INSTALLATION  
+📥 **Install dependencies**:  
+```bash
+pip install tensorflow keras numpy matplotlib scikit-learn opencv-python
